@@ -1,0 +1,13 @@
+admin/html/assets/javascript/engine/controllers/shipcloud/package_template_controller.min.js
+admin/html/assets/javascript/engine/controllers/shipcloud/package_template_controller.js
+admin/html/content/module_center/shipcloud_package_template_configuration_box.html
+GambioAdmin/Application/Http/ContentNavigation.php
+GambioAdmin/Application/Http/ContentNavigationItem.php
+GambioAdmin/Application/Http/AbstractAction.php
+GambioAdmin/Application/Kernel/*
+GambioAdmin/Application/routes.php
+GambioCore/Application/Kernel/Bootstrapper/*
+GambioCore/Application/Kernel/AbstractBootstrapper.php
+GambioCore/Application/Kernel/Bootstrapper.php
+GambioCore/Application/Kernel/Kernel.php
+GambioCore/Application/ServiceProviders/Abstraction/*

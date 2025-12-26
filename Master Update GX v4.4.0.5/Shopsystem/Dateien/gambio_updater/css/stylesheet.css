@@ -1,0 +1,324 @@
+/* --------------------------------------------------------------
+   stylesheet.css 2018-04-11
+   Gambio GmbH
+   http://www.gambio.de
+   Copyright (c) 2018 Gambio GmbH
+   Released under the GNU General Public License (Version 2)
+   [http://www.gnu.org/licenses/gpl-2.0.html]
+   --------------------------------------------------------------
+*/
+
+/* === DEFAULT FONT DEFINITION ====================================================================================== */
+
+* {
+	font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* === BOOTSTRAP SPECIFIC STYLES ==================================================================================== */
+
+p {
+	margin: 0 0 15px;
+}
+
+.btn {
+	background-image: none !important;
+	border-width:     0;
+	border-radius:    0 0 0 0;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	font-weight:      300;
+}
+
+.btn.btn-default {
+	background-color: #EEEEEE;
+}
+
+a:hover.btn.btn-default, input:hover.btn.btn-default {
+	background-color: #DDDDDD;
+}
+
+.form-control {
+	border-radius: 0;
+	border-width:  0;
+	background:    #EEEEEE;
+	box-shadow:    none;
+	font-weight:   300;
+}
+
+.form-control:focus {
+	box-shadow:       none;
+	background-color: #DDDDDD;
+}
+
+.alert {
+	width: 100%;
+	display:    block;
+	box-shadow: none;
+	margin:     20px 0 0 0;
+}
+
+.alert:last-child {
+	margin-bottom: 20px;
+}
+
+.alert.alert-danger {
+	background-color: #E7C3C3;
+	background-image: none;
+	border-color:     #EBCCD1;
+}
+
+.alert.alert-warning {
+	background-color: #F8EFC0;
+	background-image: none;
+	border-color:     #F5E79E;
+}
+
+/* === PAGE STYLES ================================================================================================== */
+
+body {
+	background-color: #002337;
+}
+
+#result,
+#errors_report,
+#sql_errors_report,
+#conflicts_report,
+#update_status,
+#installation_success,
+#installation_success_cache_error,
+#clear_cache,
+#check_for_updates,
+#result .btn,
+.auto-updater-update-available,
+.absolute_dir {
+	display: none;
+}
+
+body .page-header {
+	border:  none;
+	color:   #FFFFFF;
+	margin:  0;
+	padding: 0;
+}
+
+body .page-header #logo {
+	display: inline-block;
+	margin:  7px 12px;
+	width:   32px;
+	float: left;
+}
+
+body .page-header h1 {
+	display:        inline-block;
+	font-size:      16px;
+	font-weight:    800;
+	margin:         16px 0 0;
+	text-transform: uppercase;
+}
+
+body .container {
+	min-height:      84vh;
+	display:         flex;
+	align-items:     center;
+	justify-content: center;
+}
+
+body .container .row #main {
+	background-color: #FFFFFF;
+	box-shadow:       0 8px 7px -7px #000C;
+	margin-bottom:    15px;
+	padding:          45px;
+	width:            60vw;
+}
+
+body .container .row #main h2 {
+	font-size:      18px;
+	font-weight:    normal;
+	width:          100%;
+	padding-bottom: 5px;
+	border-bottom:  1px solid #E5E5E5;
+}
+
+body .container .notice_field h3 {
+	font-size: 16px;
+}
+
+body .container .row #main #install_service {
+	background-color: #EEEEEE;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	margin-bottom:    45px;
+	padding:          15px;
+}
+
+body .container .row #main .installation-text {
+	margin-bottom: 15px;
+}
+
+body .container .row #main .version-select {
+	max-width: 50%;
+}
+
+body .container .row #main .updates-list,
+body .container .row #main .files-list {
+	background-color: #EEEEEE;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	max-height:       30vh;
+	overflow:         auto;
+	padding:          5px 25px;
+}
+
+body .container .row #main .files-not-uploaded .alert {
+	margin-bottom: 15px;
+}
+
+body .container .row #main .files-not-uploaded .btn {
+	margin-right: 15px;
+}
+
+body .container .row #main .updates-list .update a {
+	font-size: 10px;
+	color:     #333333;
+}
+
+body .container .row #main #section_conflicts thead tr th {
+	border-top: none;
+}
+
+/* Workaround to seperate the tbody elements */
+body .container .row #main #section_conflicts tbody:after {
+	content: "";
+	display: block;
+	height:  30px;
+}
+
+body .container .row #main #section_conflicts tbody td label {
+	margin-bottom: 0;
+}
+
+body .container .row #main .loading-spinner {
+	display:    block;
+	text-align: center;
+	margin:     30px 0;
+}
+
+body .container .row #main .loading-spinner i {
+	color:     #002337;
+	font-size: 100px;
+}
+
+body .container .row #main #update_status .current-update-text {
+	display:    block;
+	text-align: center;
+}
+
+body .container .row #main #installation_success,
+body .container .row #main #update_status {
+	margin-bottom: 30px;
+}
+
+body .container .row #main .notice_field {
+	background-color: #EEEEEE;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	margin-bottom:    15px;
+	max-height:       20vh;
+	overflow:         auto;
+	padding:          5px 15px;
+}
+
+body .container .row #main .error_field {
+	background-color: #E7C3C3;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	color:            #A94442;
+	margin:           15px 0;
+	max-height:       30vh;
+	overflow:         auto;
+	padding:          10px 15px;
+}
+
+body .container .row #main #form_delete .button_reload {
+	margin-right: 15px;
+}
+
+body .container .row #main #ftp_content {
+	background-color: #EEEEEE;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	margin-bottom:    15px;
+	max-height:       35vh;
+	overflow:         auto;
+	padding:          15px;
+}
+
+body .container .row #main legend {
+	font-size: 18px;
+}
+
+body .container .row #main #ftp,
+body .container .row #main #sftp {
+	margin: 0 5px 0 0;
+}
+
+body .container .row #main #pasv {
+	margin-left: 5px;
+}
+
+body .container .row #main #ftp_content .folder {
+	cursor: pointer;
+}
+
+body .container .row #main #ftp_content .folder .fa {
+	padding-right: 5px;
+}
+
+body .container .row #main #result #clear_cache {
+	margin-bottom: 30px;
+}
+
+body .container .row #main textarea,
+body .container .row #main #errors_container {
+	background-color: #EEEEEE;
+	border:           none;
+	box-shadow:       inset 0 1px 1px rgba(0, 0, 0, 0.10);
+	margin-top:       15px;
+	height:           20vh;
+	padding:          10px 15px;
+	overflow:         auto;
+	width:            100%;
+}
+
+body footer #copyright {
+	margin:     0 auto;
+	width:      50%;
+	color:      rgba(255, 255, 255, 0.25);
+	font-size:  12px;
+	text-align: center;
+}
+
+body footer #copyright a {
+	color:           rgba(255, 255, 255, 0.25);
+	text-decoration: underline;
+}
+
+body .loading-spinner .step-spin {
+	animation-name:            spin;
+	animation-duration:        900ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: steps(8);
+	transform-origin:          50% calc(50% + 0.5px);
+	color:                     #002337;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.checkbox-label {
+	display: inline;
+}
+
+* {
+	outline: none !important;
+}

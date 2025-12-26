@@ -1,0 +1,19 @@
+{block name='google_maps_loader'}
+    {if $showCookieConsentMessage}
+		<img data-managed="as-oil"
+			 data-src="images/pixel_trans.gif?version={$widgetId}"
+			 data-purposes="{$googleMapsPurposeId}"
+			 style="opacity: 0;"
+			 alt="Transparent pixel"
+			 onload='MapWidget.initialize("{$apiKey}","{$widgetId}",{$mapsConfig})' />
+    {elseif $isPreview}
+		<img src="images/pixel_trans.gif?version={$widgetId}"
+			 style="opacity: 0;"
+			 alt="Transparent pixel"
+			 onload='MapWidget.initialize("{$apiKey}","{$widgetId}",{$mapsConfig})' />
+    {else}
+		<script type="text/javascript">
+			window.addEventListener('JSENGINE_INIT_FINISHED', () => MapWidget.initialize("{$apiKey}","{$widgetId}",{$mapsConfig}));
+		</script>
+    {/if}
+{/block}

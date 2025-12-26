@@ -1,0 +1,32 @@
+{block name="cookie_consent_panel"}
+	{if cookie_consent_panel_is_installed()}
+		<!-- tag::oil-config[] -->
+		<script id="oil-configuration" type="application/configuration">
+			{
+			  "config_version": 1,
+			  "advanced_settings": true,
+			  "timeout": 0,
+			  "iabVendorListUrl": "{$data.iabVendorListUrl}",
+			  "only_essentials_button_status": {$data.only_essentials_button_status},
+			  "locale": {
+				"localeId": "{$data.localeId}",
+				"version": 1,
+				"texts": {
+				  "label_intro_heading": "{$data.label_intro_heading}",
+				  "label_intro": "{$data.label_intro}",
+				  "label_button_yes": "{$data.label_button_yes}",
+				  "label_button_yes_all": "{$data.label_button_yes_all}",
+				  "label_button_only_essentials": "{$data.label_button_only_essentials}",
+				  "label_button_advanced_settings": "{$data.label_button_advanced_settings}",
+				  "label_cpc_heading": "{$data.label_cpc_heading}",
+				  "label_cpc_activate_all": "{$data.label_cpc_activate_all}",
+				  "label_cpc_deactivate_all": "{$data.label_cpc_deactivate_all}",
+				  "label_nocookie_head": "{$data.label_nocookie_head}",
+				  "label_nocookie_text": "{$data.label_nocookie_text}"
+				}
+			  }
+			}
+
+		</script>
+    {/if}
+{/block}

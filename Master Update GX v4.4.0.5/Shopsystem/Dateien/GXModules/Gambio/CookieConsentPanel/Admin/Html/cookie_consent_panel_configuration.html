@@ -1,0 +1,481 @@
+{extends file="get_usermod:layouts/main/layout.html"}
+
+{block name="content"}
+	{load_language_text section="cookie_consent_panel"}
+	{load_language_text section="module_center_module" name="mcm"}
+	<script src="../JSEngine/build/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+    {if $content.activeTab =='purposes'}
+	<script src="../GXModules/Gambio/CookieConsentPanel/Admin/Javascript/CreatePurposeValidation.js"></script>
+	{/if}
+<div class="cookie-consent-options-wrapper">
+
+	<div class="tab-content">
+
+		<div role="tabpanel" class="tab-pane {if $content.activeTab =='general' } active {/if}" id="cc-general">
+			<div class="cc-general-options-overview">
+			<form id="general" action="{$content.action_save_general}" method="post">
+                    <ul class="cc-categories-list">
+                        <li>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">{$txt.label_purpose_status}</label>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<div data-gx-widget="switcher">
+								<input type="checkbox" id="plugin-status" value="1" name="active" class="form-control"{if $content.active == "1"} checked="checked"{/if} />
+							</div>
+						</div>
+					</div>
+				</div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">{$txt.label_only_essentials_button_status}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div data-gx-widget="switcher">
+                                            <input type="checkbox" id="only-essentials-button-status" value="1" name="only_essentials_button_status" class="form-control"{if $content.only_essentials_button_status == "1"} checked="checked"{/if} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+				{foreach from=$content.configuration key=$label item=$value}
+                        <li>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label class="control-label">{$txt.$label}</label>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<ul class="nav nav-tabs" role="tablist">
+							{foreach from=$content.languages item=$lang}
+							{assign var="langCode" value=$lang.code}
+							<li role="presentation" {if $lang.code == $content.activeLanguageCode}class="active" {/if}>
+							<a href="#{$label}-general-{$lang.code}" aria-controls="{$label}-general-{$lang.code}" role="tab" data-toggle="tab">
+								<span class="flag-icon flag-icon-{$lang.code}"></span>
+							</a>
+							</li>
+							{/foreach}
+						</ul>
+
+						<div class="tab-content">
+							{foreach from=$content.languages item=$lang}
+							{assign var="langCode" value=$lang.code}
+							<div role="tabpanel" class="tab-pane {if $lang.code == $content.activeLanguageCode} active{/if}" id="{$label}-general-{$langCode}">
+								<div class="form-group">
+                                            {if $value.$langCode|count_characters > 100}
+                                            <textarea name="general[{$label}][{$langCode}]" cols="10" rows="3" class="form-control">{$value.$langCode}</textarea>
+                                            {else}
+                                            <input type="text" name="general[{$label}][{$langCode}]" class="form-control" value="{$value.$langCode}">
+                                            {/if}
+								</div>
+							</div>
+							{/foreach}
+						</div>
+
+					</div>
+				</div>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </form>
+            </div>
+		</div>
+		<div role="tabpanel" class="tab-pane {if $content.activeTab =='categories' } active {/if}" id="cc-categories">
+			<form id="categories" method="post" action="admin.php?do=GambioCookieConsentPanelUpdateCategory">
+				<div class="cc-categories-overview">
+				<ul class="cc-categories-list">
+					{for $categoryId=1 to 5}
+					<li class="cc-category">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">{$txt.label_category} {$categoryId}</label>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<ul class="nav nav-tabs" role="tablist">
+                                    {foreach from=$content.languages item=$lang}
+										<li role="presentation"{if $lang.code == $content.activeLanguageCode} class="active"{/if}>
+											<a href="#edit-category-{$categoryId}-{$lang.code}" aria-controls="edit-category-{$categoryId}-{$lang.code}" role="tab" data-toggle="tab">
+												<span class="flag-icon flag-icon-{$lang.code}"></span>
+											</a>
+										</li>
+									{/foreach}
+								</ul>
+								<div class="tab-content">
+                                    {foreach from=$content.languages item=$lang}
+										<div role="tabpanel" class="tab-pane{if $lang.code == $content.activeLanguageCode} active{/if}" id="edit-category-{$categoryId}-{$lang.code}">
+											<div class="form-group">
+												<label for="edit-category-{$categoryId}-title-{$lang.code}">{$txt.label_category_title}</label>
+												{assign var="titleIndex" value="label_cpc_category_0{$categoryId}_text_{$lang.code}"}
+												<input type="text" name="category_{$categoryId}_title_{$lang.code}" class="form-control" id="edit-category-{$categoryId}-title-{$lang.code}" value="{$content.$titleIndex}">
+											</div>
+											<div class="form-group">
+												<label for="edit-category-{$categoryId}-description-{$lang.code}">{$txt.label_category_description}</label>
+                                                {assign var="descIndex" value="label_cpc_category_0{$categoryId}_desc_{$lang.code}"}
+												<textarea name="category_{$categoryId}_description_{$lang.code}" id="edit-category-{$categoryId}-description-{$lang.code}" cols="30" rows="3" class="form-control">{$content.$descIndex}</textarea>
+											</div>
+										</div>
+                                    {/foreach}
+								</div>
+							</div>
+						</div>
+					</li>
+					{/for}
+				</ul>
+			</div>
+			</form>
+		</div>
+
+		<div role="tabpanel" class="tab-pane {if $content.activeTab =='purposes' } active {/if}" id="cc-purposes">
+
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#createNewPurpose">
+				<i class="fa fa-plus"></i> {$txt.label_purpose_button_create_new}
+			</button>
+
+			<div class="modal fade" id="createNewPurpose" tabindex="-1" role="dialog" aria-labelledby="createNewPurposeLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">{$txt.label_purpose_modal_title_create}</h4>
+						</div>
+						<form method="post" action="{$content.action_create_purpose}">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label for="new-purpose-category">{$txt.label_category}</label>
+											<select class="form-control" id="new-purpose-category" name="category_id">
+												{foreach from=$content.categories item=$category}
+												<option value="{$category->id()}">{$category->name()}</option>
+												{/foreach}
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="new-purpose-status">{$txt.label_purpose_status}</label>
+											<div data-gx-widget="switcher">
+												<input type="hidden" name="purposeStatus" value="0" />
+												<input type="checkbox" id="new-purpose-status" name="status" class="form-control" value="1" checked="checked" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<ul class="nav nav-tabs" role="tablist">
+									{foreach from=$content.languages item=$lang}
+									<li role="presentation" {if $lang.code == $content.activeLanguageCode}class="active" {/if}>
+										<a href="#new-purpose-{$lang.code}" aria-controls="new-purpose-{$lang.code}" role="tab" data-toggle="tab">
+											<span class="flag-icon flag-icon-{$lang.code}"></span>
+										</a>
+									</li>
+									{/foreach}
+								</ul>
+
+								<div class="tab-content">
+									{foreach from=$content.languages item=$lang}
+									<div role="tabpanel" class="tab-pane {if $lang.code == $content.activeLanguageCode}active {/if}" id="new-purpose-{$lang.code}">
+										<div class="form-group">
+											<label for="new-purpose-title-{$lang.code}">{$txt.label_purpose_title}</label>
+											<input type="text" class="form-control new-purpose-title" name="names[{$lang.id}]" id="new-purpose-title-{$lang.code}">
+										</div>
+										<div class="form-group">
+											<label for="new-purpose-description-{$lang.code}">{$txt.label_purpose_description}</label>
+                                            <textarea class="form-control" cols="10" rows="3" name="descriptions[{$lang.id}]" id="new-purpose-description-{$lang.code}"></textarea>
+										</div>
+									</div>
+									{/foreach}
+								</div>
+
+								<div class="alert alert-danger" id="purpose-missing-title-msg" style="display: none;">
+									{$txt.error_message_missing_title}
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">{$txt.label_cpc_button_cancel}</button>
+								<input type="submit" class="btn btn-primary create-purpose-submit" value="{$txt.label_cpc_button_create}"/>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-main table-striped table-row-large dataTable no-footer">
+				<thead>
+					<tr>
+						<th width="5%">{$txt.label_purpose_status}</th>
+						<th width="15%">{$txt.label_purpose_title}</th>
+						<th width="55%">{$txt.label_purpose_description}</th>
+						<th width="15%">{$txt.label_category}</th>
+						<th width="10%"></th>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach from=$content.purposes item=$purpose}
+					<tr>
+						<td>
+							<div data-gx-widget="checkbox"
+								 data-checkbox-checked="{if $purpose->status() == true}true{else}false{/if}"
+								 data-checkbox-on_url="{$content.action_update_purpose_status}&id={$purpose->id()}&status=1"
+								 data-checkbox-off_url="{$content.action_update_purpose_status}&id={$purpose->id()}&status=0"></div>
+						</td>
+						<td>{$purpose->name($content.activeLanguageId)}</td>
+						<td>{$purpose->description($content.activeLanguageId)}</td>
+						<td>{$purpose->categoryName($content.activeLanguageId)}</td>
+
+						<td class="actions text-right">
+                            {if !($purpose->deletable() === false && $purpose->categoryId() === 1)}
+							<div data-gx-widget="button_dropdown">
+								<div
+									data-use-button_dropdown="true"
+									data-config_key="edit-purpose-{$purpose->id()}"
+									data-custom_caret_btn_class="dropdown-toggle"
+									class="btn-group dropdown">
+									<button type="button" onclick="$('#edit-purpose-{$purpose->id()}').modal('show');">
+										{$txt.label_cpc_button_edit}
+									</button>
+									<ul>
+										{if $purpose->deletable() === true}
+											<li><a href="#" onclick="$('#delete-purpose-{$purpose->id()}').modal('show');">{$txt.label_cpc_button_delete}</a></li>
+                                        {/if}
+										{if $purpose->categoryId() !== 1}
+											<li><a href="#" class="show-integration-modal" data-purpose="{$purpose->id()}">{$txt.label_show_integration}</a></li>
+                                        {/if}
+									</ul>
+								</div>
+							</div>
+							{else}
+								<button type="button" class="btn btn-default btn-edit-purpose" onclick="$('#edit-purpose-{$purpose->id()}').modal('show');">
+                                    {$txt.label_cpc_button_edit}
+								</button>
+                            {/if}
+						</td>
+					</tr>
+				{/foreach}
+				</tbody>
+			</table>
+
+			{foreach from=$content.purposes item=$purpose}
+				<div class="modal fade" id="edit-purpose-{$purpose->id()}" tabindex="-1" role="dialog" aria-labelledby="edit-purpose-{$purpose->id()}Label">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="edit-purpose-{$purpose->id()}Label">{$txt.label_purpose_modal_title_edit}</h4>
+							</div>
+							<form action="{$content.action_update_purpose}" method="post" id="form-edit-purpose-{$purpose->id()}">
+								<input type="hidden" name="id" value="{$purpose->id()}" />
+								<input type="hidden" name="alias" value="{$purpose->alias()}" />
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-8">
+											<div class="form-group">
+												<label for="edit-purpose-category-{$purpose->id()}">{$txt.label_category}</label>
+												<select class="form-control" name="category_id" id="edit-purpose-category-{$purpose->id()}">
+													<option value=""></option>
+													{foreach from=$content.categories item=$category}
+													<option value="{$category->id()}" {if  $category->id() == $purpose->categoryId()} selected{/if}>{$category->name()}</option>
+													{/foreach}
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label for="edit-purpose-status-{$purposeId}">{$txt.label_purpose_status}</label>
+												<div data-gx-widget="switcher">
+													<input type="checkbox" id="edit-purpose-status-{$purposeId}" name="status" value="1" class="form-control" {if $purpose->status() == true}checked="checked"{else}{/if} />
+												</div>
+											</div>
+										</div>
+									</div>
+									<ul class="nav nav-tabs" role="tablist">
+										<ul class="nav nav-tabs" role="tablist">
+										{foreach from=$content.languages item=$lang}
+											<li role="presentation" {if $lang.code == $content.activeLanguageCode}class="active" {/if}>
+												<a href="#edit-purpose-{$purpose->id()}-{$lang.code}" aria-controls="edit-purpose-{$purpose->id()}-{$lang.code}" role="tab" data-toggle="tab">
+													<span class="flag-icon flag-icon-{$lang.code}"></span>
+												</a>
+											</li>
+										{/foreach}
+										</ul>
+									</ul>
+
+									<div class="tab-content">
+
+										{foreach from=$content.languages item=$lang}
+										<div role="tabpanel" class="tab-pane {if $lang.code == $content.activeLanguageCode}active {/if}" id="edit-purpose-{$purpose->id()}-{$lang.code}">
+											<div class="form-group">
+												<label for="edit-purpose-{$purpose->id()}-title-{$lang.code}">{$txt.label_purpose_title}</label>
+												<input type="text" class="form-control" name="names[{$lang.id}]" id="edit-purpose-{$purpose->id()}-title-{$lang.code}" value="{$purpose->name($lang.id)}">
+											</div>
+											<div class="form-group">
+												<label for="edit-purpose-{$purpose->id()}-description-{$lang.code}">{$txt.label_purpose_description}</label>
+                                                <textarea class="form-control" cols="10" rows="3" name="descriptions[{$lang.id}]" id="edit-purpose-{$purpose->id()}-description-{$lang.code}">{$purpose->description($lang.id)}</textarea>
+											</div>
+										</div>
+										{/foreach}
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">{$txt.label_cpc_button_cancel}</button>
+									<input type="submit" class="btn btn-primary" value="{$txt.label_cpc_button_update}" form="form-edit-purpose-{$purpose->id()}"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="delete-purpose-{$purpose->id()}" tabindex="-1" role="dialog" aria-labelledby="delete-purpose-{$purpose->id()}Label">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="delete-purpose-{$purpose->id()}Label">{$txt.label_cpc_delete_modal_title}</h4>
+							</div>
+							<div class="modal-body">
+								<p>{$txt.label_cpc_delete_modal_content}</p>
+							</div>
+							<div class="modal-footer">
+								<form action="{$content.action_delete_purpose}" method="post" id="form-delete-purpose-{$purpose->id()}">
+									<input type="hidden" value="{$purpose->id()}" name="id"/>
+									<button type="button" class="btn btn-default" data-dismiss="modal">{$txt.label_cpc_button_cancel}</button>
+									<input type="submit" class="btn btn-danger" value="{$txt.label_cpc_button_delete}" form="form-delete-purpose-{$purpose->id()}"/>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			{/foreach}
+
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="show-integration-modal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	            <h4 class="modal-title">{$txt.integration_your_code_header}</h4>
+            </div>
+			<div class="modal-body">
+                <div class="form-group">
+	                <label for="show-integration-modal-your-code-example" id="show-integration-modal-your-code-headline"></label>
+				    <textarea id="show-integration-modal-your-code-example" class="form-control disable-resize" cols="50" rows="9"></textarea>
+                </div>
+                <div class="form-group">
+	                <label for="show-integration-modal-your-script-example" id="show-integration-modal-your-script-headline"></label>
+				    <textarea id="show-integration-modal-your-script-example" class="form-control disable-resize" cols="50" rows="7"></textarea>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!--suppress VueDuplicateTag -->
+	<script>
+
+		var htmlEntities = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#39;',
+			'/': '&#x2F;',
+			'`': '&#x60;',
+			'=': '&#x3D;'
+		};
+
+		function escapeHtml (string) {
+			return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+				return htmlEntities[s];
+			});
+		}
+
+		let integration_your_code = "{$txt.integration_your_code}",
+			integration_script_path = "{$txt.integration_script_path}",
+			integration_your_code_headline = "{$txt.integration_your_code_headline}",
+			integration_script_path_headline = "{$txt.integration_script_path_headline}",
+			integration_button_class_selector = ".show-integration-modal",
+			inline_script_template = '<script async\t\n'
+				+ '\t\tdata-type="text/javascript"\n'
+				+ '\t\ttype="as-oil"\n'
+				+ '\t\tdata-purposes="__PURPOSE_ID__"\n'
+				+ '\t\tdata-managed="as-oil">\n'
+				+ '\n'
+				+ '\t\t__YOUR_CODE__\n'
+				+ '\n'
+				+ '\<\/script\>',
+			loaded_script_template = '<script async\t\n'
+				+ '\t\tdata-type="text/javascript"\n'
+				+ '\t\tdata-src="__YOUR_SCRIPT__"\n'
+				+ '\t\ttype="as-oil"\n'
+				+ '\t\tdata-purposes="__PURPOSE_ID__"\n'
+				+ '\t\tdata-managed="as-oil">\<\/script\>\n',
+			code_headline_selector = '#show-integration-modal-your-code-headline',
+			code_textarea_selector = '#show-integration-modal-your-code-example',
+			script_headline_selector = '#show-integration-modal-your-script-headline',
+			script_textarea_selector = '#show-integration-modal-your-script-example';
+
+	{literal}
+		let show_integration_modal = function(purpose_id) {
+			let $modal = $('#show-integration-modal'),
+				$code_headline = $(code_headline_selector),
+				$code_textarea = $(code_textarea_selector),
+				$script_headline = $(script_headline_selector),
+				$script_textarea = $(script_textarea_selector);
+
+			$code_headline.html(integration_your_code_headline);
+			$script_headline.html(integration_script_path_headline);
+
+			$code_textarea.html(escapeHtml(inline_script_template.replace('__PURPOSE_ID__', purpose_id).replace('__YOUR_CODE__', integration_your_code)));
+			$script_textarea.html(escapeHtml(loaded_script_template.replace('__PURPOSE_ID__', purpose_id).replace('__YOUR_SCRIPT__', integration_script_path)))
+
+			$modal.modal('show');
+		};
+
+		let integration_modal_event_listener = function() {
+			let purpose_id = $(this).attr('data-purpose')
+			show_integration_modal(purpose_id);
+		};
+
+		$(integration_button_class_selector).each(function() {
+			$(this).get(0).addEventListener('click', integration_modal_event_listener);
+		});
+		$(function() {
+	{/literal}
+		{if $content.lastInsertedPurpose != false}
+
+			show_integration_modal({$content.lastInsertedPurpose});
+
+		{/if}
+		{literal}
+		});
+		{/literal}
+	</script>
+{/block}
+
+{block name="bottom_save_bar"}
+	{if $smarty.get.activetab}
+		{assign var="activetab" value=$smarty.get.activetab}
+	{else}
+        {assign var="activetab" value="general"}
+    {/if}
+	{if $activetab !="purposes"}
+		{load_language_text section="admin_buttons" name="admin_buttons"}
+		<input form="{$activetab}" type="submit" value="{$txt.label_cpc_button_save}" class="btn btn-primary">
+    {/if}
+{/block}

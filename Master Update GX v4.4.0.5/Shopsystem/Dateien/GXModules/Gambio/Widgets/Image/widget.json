@@ -1,0 +1,167 @@
+{
+	"id": "image",
+	"title": "imageWidget.title",
+	"icon": {
+		"name": "Image",
+		"file": "image.svg"
+	},
+	"author": {
+		"name": "Gambio GmbH",
+		"email": "info@gambio.de",
+		"url": "https://www.gambio.de"
+	},
+	"helpUrl": "https://www.gambio.de/help",
+	"description": "imageWidget.description",
+	"cache": 0,
+	"version": "1.0.0",
+	"displayConfig": "sidebar",
+	"fieldsets": [
+		{
+			"title": "imageWidget.options.general.title",
+			"options": [
+				{
+					"id": "image",
+					"label": "imageWidget.options.general.options.image.label",
+					"type": "imageupload",
+					"translatable": true,
+					"placeholder": "imageWidget.options.general.options.image.placeholder",
+					"default": {
+						"de": "\/\/www.gambio-shop.de\/shop1\/images\/logos\/logo-ihr-shop_logo.png",
+						"en": "\/\/www.gambio-shop.de\/shop1\/images\/logos\/logo-ihr-shop_logo.png"
+					},
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "name",
+					"label": "imageWidget.options.general.options.name.label",
+					"type": "textbox",
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.name.placeholder"
+					},
+					"default": "",
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "alt",
+					"label": "imageWidget.options.general.options.alt.label",
+					"type": "textbox",
+					"translatable": true,
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.alt.placeholder"
+					},
+					"default": {},
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "title",
+					"label": "imageWidget.options.general.options.title.label",
+					"type": "textbox",
+					"translatable": true,
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.title.placeholder"
+					},
+					"default": {},
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "link",
+					"label": "imageWidget.options.general.options.link.label",
+					"type": "url",
+					"translatable": true,
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.link.placeholder"
+					},
+					"default": {},
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "target",
+					"type": "dropdownselect",
+					"label": "imageWidget.options.general.options.target.label",
+					"default": "_self",
+					"options": [
+						{
+							"value": "_blank",
+							"text": "imageWidget.options.general.options.target.blank"
+						},
+						{
+							"value": "_self",
+							"text": "imageWidget.options.general.options.target.self"
+						},
+						{
+							"value": "_parent",
+							"text": "imageWidget.options.general.options.target.parent"
+						},
+						{
+							"value": "_top",
+							"text": "imageWidget.options.general.options.target.top"
+						}
+					],
+					"from": "contentZoneWidget"
+				}
+			]
+		},
+		{
+			"title": "imageWidget.options.design.title",
+			"options": [
+				{
+					"id": "responsive",
+					"label": "imageWidget.options.general.options.responsive.label",
+					"type": "checkbox",
+					"default" : true
+				},
+				{
+					"id": "width",
+					"label": "imageWidget.options.general.options.width.label",
+					"type": "numberbox",
+					"placeholder": "imageWidget.options.general.options.width.placeholder",
+					"default": "",
+					"from": "contentZoneWidget",
+					"visible": {
+						"id": "responsive",
+						"value": false
+					}
+				},
+				{
+					"id": "height",
+					"label": "imageWidget.options.general.options.height.label",
+					"type": "numberbox",
+					"placeholder": "imageWidget.options.general.options.height.placeholder",
+					"default": "",
+					"from": "contentZoneWidget",
+					"visible": {
+						"id": "responsive",
+						"value": false,
+						"comparison_type": "=="
+					}
+				}
+
+			]
+		},
+		{
+			"title": "imageWidget.options.css.title",
+			"options": [
+				{
+					"id": "id",
+					"label": "imageWidget.options.general.options.id.label",
+					"type": "textbox",
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.id.placeholder"
+					},
+					"default": "",
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "class",
+					"label": "imageWidget.options.general.options.class.label",
+					"type": "textbox",
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.class.placeholder"
+					},
+					"default": "",
+					"from": "contentZoneWidget"
+				}
+			]
+		}
+	]
+}

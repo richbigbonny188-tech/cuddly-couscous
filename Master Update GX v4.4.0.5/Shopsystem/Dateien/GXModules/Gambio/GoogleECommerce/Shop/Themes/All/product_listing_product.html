@@ -1,0 +1,6 @@
+{block name="snippets_product_listing_product_description_title"}
+	{$smarty.block.parent}
+	{if $google_analytics_enabled and $google_analytics_tracking_enabled}
+		<template class="google-analytics-product-name">{$p_headline}</template>
+	{/if}
+{/block}

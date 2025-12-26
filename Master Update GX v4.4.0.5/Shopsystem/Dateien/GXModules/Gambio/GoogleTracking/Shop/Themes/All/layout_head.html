@@ -1,0 +1,102 @@
+{block name="layout_head_head_additional_html_array_first" prepend}
+
+	{if $content_data.tracking_enabled}
+
+		{if $content_data.google_analytics_dev_mode_enabled}
+			<script
+					async
+                    {if cookie_consent_panel_is_installed()}
+						data-src="https://www.googletagmanager.com/gtag/js?id={$content_data.gtag_id}"
+						type="as-oil"
+						data-type="text/javascript"
+						data-purposes="4"
+						data-managed="as-oil"
+					{else}
+						src="https://www.googletagmanager.com/gtag/js?id={$content_data.gtag_id}"
+					{/if}
+			></script>
+		{else}
+			{if $content_data.analytics_tracking_enabled}
+				<script
+						async
+                        {if cookie_consent_panel_is_installed()}
+							data-src='{$content_data.google_analytics_ec_plugin_js_file}'
+							type="as-oil"
+							data-type="text/javascript"
+							data-purposes="4"
+							data-managed="as-oil"
+						{else}
+							src='{$content_data.google_analytics_ec_plugin_js_file}'
+						{/if}
+				></script>
+			{/if}
+			<script
+					async
+                    {if cookie_consent_panel_is_installed()}
+						data-src='{$content_data.google_analytics_gtag_js_file}'
+						type="as-oil"
+						data-type="text/javascript"
+						data-purposes="4"
+						data-managed="as-oil"
+					{else}
+						src='{$content_data.google_analytics_gtag_js_file}'
+					{/if}
+			></script>
+		{/if}
+    	{if cookie_consent_panel_is_installed()}
+			<script
+					data-managed="as-oil"
+					data-type="text/javascript"
+					data-purposes="4"
+					type="as-oil"
+			>
+		{else}
+			<script>
+		{/if}
+			{if $content_data.analytics_tracking_enabled}
+			var gaDisable = 'ga-disable-{$content_data.google_analytics_tracking_code}';
+
+			if (document.cookie.indexOf(gaDisable + '=true') > -1) {
+				window[gaDisable] = true;
+			}
+
+			function gaOptOut() {
+				document.cookie = gaDisable + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+				window[gaDisable] = true;
+				console.log('Disabled Google-Analytics Tracking');
+			}
+
+			function gaOptout() {
+				gaOptOut();
+			}
+
+			function checkGaOptOutAnchor() {
+				if (location.hash.substr(1) === 'gaOptOut') {
+					gaOptOut();
+				}
+			}
+
+			checkGaOptOutAnchor();
+			window.addEventListener('hashchange', checkGaOptOutAnchor);
+			{/if}
+
+			window.dataLayer = window.dataLayer || [];
+			{literal}
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			{/literal}
+
+			gtag('js', new Date());
+
+			{if $content_data.analytics_tracking_enabled}
+			gtag('config', '{$content_data.google_analytics_tracking_code}', { 'anonymize_ip': {if $content_data.google_analytics_anonymize_ip_enabled}true{else}false{/if} });
+			{/if}
+
+			{if $content_data.ads_conversion_tracking_enabled}
+			gtag('config', '{$content_data.google_ads_conversion_id}');
+			{/if}
+		</script>
+	{/if}
+
+{/block}

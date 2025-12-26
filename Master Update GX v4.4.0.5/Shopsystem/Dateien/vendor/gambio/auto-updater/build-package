@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Configuration
+ZIP_NAME="auto_updater-2_1_1-main"
+
+PROJECT_DIR="$PWD"
+PACKAGE_DIR="$PROJECT_DIR/package"
+TEMP_DIR="$PROJECT_DIR/temp"
+SOURCE_DIR="$PROJECT_DIR/src"
+
+SHOP_REPOSITORY="git@sources.gambio-server.net:gambio/gxdev.git"
+SHOP_BRANCH="3.11_release_v3.11.1"
+
+
+# Start buildung
+echo "------------------------------------"
+echo "  Building an auto updater package"
+echo "------------------------------------"
+echo ""
+echo "PROJECT_DIR = $PROJECT_DIR"
+echo "PACKAGE_DIR = $PACKAGE_DIR"
+echo "TEMP_DIR    = $TEMP_DIR"
+echo "SOURCE_DIR  = $SOURCE_DIR"
+echo ""
+read -p"proceed (y/N)? " proceed
+echo ""
+
+if [ "$proceed" == "y" ]; then
+	echo "And action ..."
+	echo "- Create some directories"
+	mkdir -p "$PACKAGE_DIR"
+	rm -rf "$PACKAGE_DIR"
+	rm -rf "$TEMP_DIR"
+	mkdir -p "$TEMP_DIR"
+
+	echo "- Copy auto updater files into package directory"
+	cp -r "$SOURCE_DIR" "$PACKAGE_DIR"
+
+	echo "- Checkout shop branch"
+	cd "$TEMP_DIR"
+	git clone -q "$SHOP_REPOSITORY" .
+	git checkout -q "$SHOP_BRANCH"
+
+	echo "- Copy files from shop into package"
+	cp -r "$TEMP_DIR/src/gambio_updater" "$PACKAGE_DIR"
+	rm -rf "$PACKAGE_DIR/gambio_updater/updates"
+
+		echo "--> Copy gambio updater"
+		cp -r "$SOURCE_DIR/gambio_updater/updates" "$PACKAGE_DIR/gambio_updater"
+
+		echo "--> Copy security check"
+		mkdir -p "$PACKAGE_DIR/system/classes/security"
+		cp "$TEMP_DIR/src/system/classes/security/SecurityCheck.inc.php" "$PACKAGE_DIR/system/classes/security/SecurityCheck.inc.php"
+
+		echo "--> Copy chmod files"
+		cp -r "$TEMP_DIR/src/version_info/lists" "$PACKAGE_DIR/version_info"
+
+	echo "- Copy gambio updater files from source into package directory"
+	cp -r "$SOURCE_DIR/gambio_updater" "$PACKAGE_DIR"
+
+	echo "- Create zip archive"
+	cd "$PACKAGE_DIR"
+	rm -f "$PROJECT_DIR/$ZIP_NAME.zip"
+	zip -rq "$PROJECT_DIR/$ZIP_NAME.zip" .
+
+	echo "- Cleaning up"
+	rm -rf "$TEMP_DIR"
+	rm -rf "$PACKAGE_DIR"
+
+	echo ""
+	echo "Done :-)"
+fi

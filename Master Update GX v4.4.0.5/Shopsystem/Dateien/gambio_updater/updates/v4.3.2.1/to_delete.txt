@@ -1,0 +1,2 @@
+admin/templates_c/*
+templates_c/*

@@ -1,0 +1,4 @@
+GambioAdmin/Modules/Statistics/Entities/MonthlyTimespan.php
+GambioAdmin/Modules/Statistics/Repositories/Conversion/ValueObjects/*
+GambioAdmin/Modules/Statistics/Repositories/Sales/ValueObjects/*
+GambioAdmin/Modules/Statistics/Repositories/Visitors/ValueObjects/*

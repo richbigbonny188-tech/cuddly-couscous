@@ -1,0 +1,13 @@
+{
+	"name": "gambio/auto-updater",
+	"description": "AutoUpdater for the Gambio Shop.",
+	"minimum-stability": "dev",
+	"license": "GPL-2.0",
+	"require": {
+		"ext-curl": "*",
+		"ext-json": "*"
+	},
+	"scripts": {
+		"create-docs": "php phpdoc.phar -d ./src/GXMainComponents -t ./docs"
+	}
+}

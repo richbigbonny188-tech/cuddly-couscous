@@ -1,0 +1,17 @@
+{block name='google_maps_widget_consent_warning'}
+    {if $showActivateCookiePurposeWarning}
+		<style>
+			.alert-purpose-google-maps-consent {
+				margin-bottom: 0;
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+			.alert-purpose-google-maps-consent .fa {
+				margin-right: 5px;
+			}
+		</style>
+		<div class="alert alert-warning alert-purpose-google-maps-consent">
+			<p><i class="fa fa-warning"></i> {$warningTxt['consent.warning']}</p>
+		</div>
+    {/if}
+{/block}

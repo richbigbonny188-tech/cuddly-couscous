@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="228.03555mm"
+   height="317.21777mm"
+   viewBox="0 0 807.99999 1124"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="tablet-portrait-preview-frame.svg">
+  <title
+     id="title4152">StyleEdit v3 Tablet</title>
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-246.89478"
+     inkscape:cy="520.80907"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="971"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>StyleEdit v3 Tablet</dc:title>
+        <dc:date>08.12.2015</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Gambio GmbH</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>All Rights Reserved</dc:title>
+          </cc:Agent>
+        </dc:rights>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-8.0820312,102.28711)">
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:0.78431373"
+       d="M 21.041016,-14.285156 C 9.3839342,-14.285156 1e-7,-4.4940632 0,7.6679688 L 0,1087.7617 c 0,12.1621 9.3839342,21.9531 21.041016,21.9531 l 765.916014,0 c 11.65708,0 21.04297,-9.7911 21.04297,-21.9531 L 808,7.6679688 c 0,-12.1620321 -9.38589,-21.9531248 -21.04297,-21.9531248 l -765.916014,0 z M 20,10 l 768,0 0,1024 -768,0 0,-1024 z m 384,1037.623 a 24.234953,24.234953 0 0 1 24.23438,24.2344 A 24.234953,24.234953 0 0 1 404,1096.0918 24.234953,24.234953 0 0 1 379.76562,1071.8574 24.234953,24.234953 0 0 1 404,1047.623 Z"
+       transform="translate(8.0820312,-88.001953)"
+       id="rect4136"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+{block name="footer_badge"}
+    {$smarty.block.parent}
+	<div class="google-badge footer-badge">
+		<a class="{if $isConnectedWithGoogle}success{else}danger{/if}" href="./admin.php?do=GoogleOAuth">
+			<i class="fa fa-google"></i>
+
+            {if $isConnectedWithGoogle}
+				<span>{$google_txt.connected_title}</span>
+            {else}
+				<span>{$google_txt.disconnected_title}</span>
+            {/if}
+		</a>
+	</div>
+{/block}
