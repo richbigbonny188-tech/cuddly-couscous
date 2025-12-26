@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- {load_language_text section="admin_menu" use_fallback=(SHOW_UNTRANSLATED_MENUITEMS|defined)?$smarty.const.SHOW_UNTRANSLATED_MENUITEMS:'false'} -->
+
+<admin_menu>
+	<menugroup id="BOX_HEADING_GOOGLE" sort="35" class="fa fa-google" title="{$txt.BOX_HEADING_GOOGLE|escape}">
+		<menuitem sort="10" link="admin.php" link_param="do=GoogleShopping" title="{$txt.BOX_GOOGLE_SHOPPING|escape}" />
+		<menuitem sort="20" link="admin.php" link_param="do=GoogleAdWords" title="{$txt.BOX_GOOGLE_ADWORDS|escape}" />
+		<menuitem sort="30" link="admin.php" link_param="do=GoogleAnalyticsAdmin" title="{$txt.BOX_GOOGLE_ANALYTICS|escape}" />
+	</menugroup>
+</admin_menu>

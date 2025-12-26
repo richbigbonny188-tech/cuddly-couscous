@@ -1,0 +1,15 @@
+{block name="product_listing_template_product_listing_v1"}
+	{$smarty.block.parent}
+	{if $google_analytics_enabled and $google_analytics_tracking_enabled and $google_analytics_data}
+		{include
+			file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/view_item_list.html"
+			data=$google_analytics_data
+		}
+		{include
+			file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/product_click_snippet.html"
+			data=$google_analytics_data
+			selector=".product-container"
+			match_name_by_template_selector="template.google-analytics-product-name"
+		}
+	{/if}
+{/block}

@@ -1,0 +1,170 @@
+{
+	"id": "button",
+	"title": "ButtonWidget.title",
+	"icon": {
+		"name": "Button",
+		"file": "button.svg"
+	},
+	"author": {
+		"name": "Gambio GmbH",
+		"email": "info@gambio.de",
+		"url": "https://www.gambio.de"
+	},
+	"helpUrl": "https://www.gambio.de/help",
+	"description": "ButtonWidget.description",
+	"cache": 0,
+	"version": "1.0.0",
+	"displayConfig": "sidebar",
+	"fieldsets": [
+		{
+			"title": "ButtonWidget.options.general.title",
+			"options": [
+				{
+					"id": "text",
+					"label": "ButtonWidget.options.text.label",
+					"placeholder": "ButtonWidget.options.text.placeholder",
+					"type": "textbox",
+					"translatable": true,
+					"attributes": {
+						"placeholder": "ButtonWidget.options.text.placeholder"
+					},
+					"default": {
+						"de": "Button",
+						"en": "Button"
+					},
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "link",
+					"label": "ButtonWidget.options.link-url.label",
+					"type": "url",
+					"translatable": true,
+					"attributes": {
+						"placeholder": "ButtonWidget.options.link-url.placeholder"
+					},
+					"default": {},
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "target",
+					"type": "dropdownselect",
+					"label": "ButtonWidget.options.target.label",
+					"default": "_self",
+					"options": [
+						{
+							"value": "_blank",
+							"text": "ButtonWidget.options.target.blank"
+						},
+						{
+							"value": "_self",
+							"text": "ButtonWidget.options.target.self"
+						},
+						{
+							"value": "_parent",
+							"text": "ButtonWidget.options.target.parent"
+						},
+						{
+							"value": "_top",
+							"text": "ButtonWidget.options.target.top"
+						}
+					],
+					"from": "contentZoneWidget"
+				},
+				{
+					"id": "class",
+					"label": "ButtonWidget.options.class.label",
+					"type": "textbox",
+					"placeholder": "ButtonWidget.options.class.placeholder",
+					"default": ""
+				},
+				{
+					"id": "id",
+					"label": "ButtonWidget.options.id.label",
+					"type": "textbox",
+					"placeholder": "ButtonWidget.options.id.placeholder",
+					"default": ""
+				}
+			]
+		},
+		{
+			"title": "ButtonWidget.options.design.size",
+			"options": [
+				{
+					"id": "size",
+					"type": "radioimage",
+					"label": "Size",
+					"options": [
+						{
+							"id": "btn-xs",
+							"title": "Extra Small",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Button/Assets/Images/button-size-xs.png"
+						},
+						{
+							"id": "btn-sm",
+							"title": "Small",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Button/Assets/Images/button-size-sm.png"
+						},
+						{
+							"id": "",
+							"title": "Normal",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Button/Assets/Images/button-size-md.png"
+						},
+						{
+							"id": "btn-lg",
+							"title": "Large",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Button/Assets/Images/button-size-lg.png"
+						}
+					],
+					"default": ""
+				}
+			]
+		},
+		{
+			"title": "ButtonWidget.options.design.type",
+			"options": [
+				{
+					"id": "buttonType",
+					"type": "radioimage",
+					"options": [
+						{
+							"id": "btn-default",
+							"title": "Default",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/btn-default-bg/f3f3f3/{STYLE_NAME}"
+						},
+						{
+							"id": "btn-info",
+							"title": "Info",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/brand-info/5bc0de/{STYLE_NAME}"
+						},
+						{
+							"id": "btn-primary",
+							"title": "Primary",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/brand-primary/cccccc/{STYLE_NAME}"
+						},
+						{
+							"id": "btn-secondary",
+							"title": "Secondary",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/gx-brand-secondary/cccccc/{STYLE_NAME}"
+						},
+						{
+							"id": "btn-success",
+							"title": "Success",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/brand-success/5cb85c/{STYLE_NAME}"
+						},
+						{
+							"id": "btn-warning",
+							"title": "Warning",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/brand-warning/f0ad4e/{STYLE_NAME}"
+						},
+						{
+							"id": "btn-danger",
+							"title": "Danger",
+							"thumbnail": "/GXModules/Gambio/StyleEdit/Api/api.php/styleedit/de/buttonimage/{THEME_ID}/brand-danger/d9534f/{STYLE_NAME}"
+						}
+					],
+					"default": "btn-default"
+				}
+			]
+		}
+	]
+}

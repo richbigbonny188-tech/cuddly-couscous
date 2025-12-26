@@ -1,0 +1,9 @@
+{block name="checkout_confirmation"}
+	{$smarty.block.parent}
+	{if $google_analytics_enabled and $google_analytics_tracking_enabled and $google_analytics_data}
+		{include
+		file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/checkout_progress.html"
+		data=$google_analytics_data
+		}
+	{/if}
+{/block}

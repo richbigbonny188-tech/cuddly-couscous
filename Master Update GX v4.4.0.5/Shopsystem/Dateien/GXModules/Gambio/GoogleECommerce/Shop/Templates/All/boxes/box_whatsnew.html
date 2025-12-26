@@ -1,0 +1,14 @@
+{block name="box_whatsnew_bottom"}
+	{$smarty.block.parent}
+	{if $content_data.google_analytics_enabled and $content_data.google_analytics_tracking_enabled and $content_data.google_analytics_data}
+		{include
+			file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/view_item_list.html"
+			data=$content_data.google_analytics_data
+		}
+		{include
+			file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/product_click_snippet.html"
+			data=$content_data.google_analytics_data
+			selector=".panel-body > div"
+		}
+	{/if}
+{/block}

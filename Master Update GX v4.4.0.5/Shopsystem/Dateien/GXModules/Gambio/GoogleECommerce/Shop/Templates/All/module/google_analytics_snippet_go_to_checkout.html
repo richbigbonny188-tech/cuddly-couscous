@@ -1,0 +1,59 @@
+{block name="module_google_analytics_snippet_go_to_checkout"}
+    {if cookie_consent_panel_is_installed()}
+		<script
+			data-managed="as-oil"
+			data-type="text/javascript"
+			data-purposes="4"
+			type="as-oil"
+		>
+	{else}
+		<script>
+	{/if}
+		(function() {
+			let url;
+
+			function addHook() {
+				if (!url) {
+					url = (function() {
+						const url = new URL(jse.core.config.get('appUrl') + '/shop.php');
+						url.searchParams.append('do', 'GoogleAnalyticsShop/trackBeginCheckout');
+						return url.toString();
+					})();
+				}
+
+				jse.libs.hooks.add(jse.libs.hooks.keys.shop.cart.checkout, callback);
+			}
+
+			function callback(data) {
+				const promise = new Promise(function(resolve) {
+					function onSuccess(response) {
+						if (!response.enabled) {
+							resolve();
+							return;
+						}
+
+						gtag('event', 'begin_checkout', {
+							"items": [response.item]
+						});
+
+						resolve();
+					}
+
+					function onFail() {
+						resolve();
+					}
+
+					jse.libs.xhr.get({ url })
+						.then(onSuccess)
+						.fail(onFail)
+				});
+
+				promise.then(addHook);
+
+				return promise;
+			}
+
+			document.addEventListener('JSENGINE_INIT_FINISHED', addHook)
+		})();
+	</script>
+{/block}

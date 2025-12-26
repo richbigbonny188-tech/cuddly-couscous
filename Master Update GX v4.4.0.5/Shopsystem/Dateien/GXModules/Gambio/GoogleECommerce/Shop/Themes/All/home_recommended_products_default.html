@@ -1,0 +1,14 @@
+{block name="home_recommended_products_default"}
+	{$smarty.block.parent}
+	{if $google_analytics_enabled and $google_analytics_tracking_enabled and $google_analytics_data}
+		{include
+			file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/view_item_list.html"
+			data=$google_analytics_data
+		}
+		{include
+			file="get_usermod:GXModules/Gambio/GoogleECommerce/Shop/Html/product_listing_click_hook.html"
+			data=$google_analytics_data
+			section="new-products"
+		}
+	{/if}
+{/block}

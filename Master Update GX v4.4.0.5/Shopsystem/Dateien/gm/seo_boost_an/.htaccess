@@ -1,0 +1,451 @@
+# -----------------------------------------------------------------------------
+# Important Notice on own Redirects/Rewrites 
+# -----------------------------------------------------------------------------
+
+## It's easily possible to put own Redirects and Rewrites into this file. Please note our comments hinting the best place to do this below.
+
+# -----------------------------------------------------------------------------
+# Htaccess Version 
+# -----------------------------------------------------------------------------
+
+## By checking this variable from the Shop we can guess if htaccess Directives are current
+## Since some hosters do provide apache mod_env and others only mod_envif we need to do some doubling
+##
+## Important: After changing the version, you have to update the version_ino/htaccessVersion.php file too.
+
+<IfModule mod_env.c>
+	SetEnv gambio_htaccessVersion 3.5
+	SetEnv gambio_mod_env_working 1
+</IfModule>
+
+<IfModule !mod_env.c>
+	<IfModule mod_setenvif.c>
+		SetEnvIf ENV ^(.*)$ gambio_htaccessVersion=3.5
+		SetEnvIf ENV ^(.*)$ gambio_mod_envif_working=1
+	</IfModule>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Disable ETags for Performance
+# -----------------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+	
+	<IfModule mod_env.c>
+		SetEnv gambio_mod_headers_working 1
+	</IfModule>
+
+	<IfModule !mod_env.c>
+		<IfModule mod_setenvif.c>
+			SetEnvIf ENV ^(.*)$ gambio_mod_headers_working=1
+		</IfModule>
+	</IfModule>
+
+	Header unset ETag
+
+</IfModule>
+
+# `FileETag None` doesn't work in all cases.
+
+FileETag None
+
+# -----------------------------------------------------------------------------
+# Set Default Encoding for static HTML Files, JSON and friends to standards 
+# -----------------------------------------------------------------------------
+
+AddDefaultCharset UTF-8
+
+<IfModule mod_mime.c>
+
+	<IfModule mod_env.c>
+		SetEnv gambio_mod_mime_working 1
+	</IfModule>
+
+	<IfModule !mod_env.c>
+		<IfModule mod_setenvif.c>
+			SetEnvIf ENV ^(.*)$ gambio_mod_mime_working=1
+		</IfModule>
+	</IfModule>
+
+	AddCharset utf-8 .atom \
+			.bbaw \
+			.geojson \
+			.json \
+			.jsonld \
+			.manifest \
+			.rdf \
+			.rss \
+			.topojson \
+			.vtt \
+			.webapp \
+			.webmanifest \
+			.xloc \
+			.xml
+</IfModule>
+
+# ----------------------------------------------------------------------
+# MIME types                                                        |
+# ----------------------------------------------------------------------
+
+# There are quite some servers serving resources without the proper media types (f.k.a. MIME types)
+# breaking security,caching,compression
+
+<IfModule mod_mime.c>
+
+	# Data interchange
+	AddType application/atom+xml                        atom
+	AddType application/json                            json map topojson
+	AddType application/ld+json                         jsonld
+	AddType application/rss+xml                         rss
+	AddType application/vnd.geo+json                    geojson
+	AddType application/xml                             rdf xml
+
+	# JavaScript
+	AddType application/javascript                      js
+
+	# Manifest files
+	AddType application/manifest+json                   webmanifest
+	AddType application/x-web-app-manifest+json         webapp
+	AddType text/cache-manifest                         appcache
+
+	# Media files
+	AddType audio/mp4                                   f4a f4b m4a
+	AddType audio/ogg                                   oga ogg opus
+	AddType image/bmp                                   bmp
+	AddType image/svg+xml                               svg svgz
+	AddType image/webp                                  webp
+	AddType video/mp4                                   f4v f4p m4v mp4
+	AddType video/ogg                                   ogv
+	AddType video/webm                                  webm
+	AddType video/x-flv                                 flv
+	AddType image/x-icon                                cur ico
+
+	# Web fonts
+	AddType application/font-woff                       woff
+	AddType application/font-woff2                      woff2
+	AddType application/vnd.ms-fontobject               eot
+	AddType application/x-font-ttf                      ttc ttf
+	AddType font/opentype                               otf
+
+	# Other
+	AddType application/octet-stream                    safariextz
+	AddType application/x-bb-appworld                   bbaw
+	AddType application/x-chrome-extension              crx
+	AddType application/x-opera-extension               oex
+	AddType application/x-xpinstall                     xpi
+	AddType text/vcard                                  vcard vcf
+	AddType text/vnd.rim.location.xloc                  xloc
+	AddType text/vtt                                    vtt
+	AddType text/x-component                            htc
+
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Compression                                                        
+# -----------------------------------------------------------------------------
+
+<IfModule mod_deflate.c>
+	
+	<IfModule mod_env.c>
+		SetEnv gambio_mod_deflate_working 1
+	</IfModule>
+
+	<IfModule !mod_env.c>
+		<IfModule mod_setenvif.c>
+			SetEnvIf ENV ^(.*)$ gambio_mod_deflate_working=1
+		</IfModule>
+	</IfModule>
+
+	<IfModule mod_headers.c>
+		SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+		RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+	</IfModule>
+
+	<IfModule mod_filter.c>
+
+		<IfModule mod_env.c>
+		        SetEnv gambio_mod_filter_working 1
+		</IfModule>
+
+		<IfModule !mod_env.c>
+			<IfModule mod_setenvif.c>
+			        SetEnvIf ENV ^(.*)$ gambio_mod_filter_working=1
+			</IfModule>
+		</IfModule>
+
+		AddOutputFilterByType DEFLATE "application/atom+xml" \
+                                      "application/javascript" \
+                                      "application/json" \
+                                      "application/ld+json" \
+                                      "application/manifest+json" \
+                                      "application/rdf+xml" \
+                                      "application/rss+xml" \
+                                      "application/schema+json" \
+                                      "application/vnd.geo+json" \
+                                      "application/vnd.ms-fontobject" \
+                                      "application/x-font-ttf" \
+                                      "application/x-javascript" \
+                                      "application/x-web-app-manifest+json" \
+                                      "application/xhtml+xml" \
+                                      "application/xml" \
+                                      "font/eot" \
+                                      "font/opentype" \
+                                      "image/bmp" \
+                                      "image/svg+xml" \
+                                      "image/vnd.microsoft.icon" \
+                                      "image/x-icon" \
+                                      "text/cache-manifest" \
+                                      "text/css" \
+                                      "text/html" \
+                                      "text/javascript" \
+                                      "text/plain" \
+                                      "text/vcard" \
+                                      "text/vnd.rim.location.xloc" \
+                                      "text/vtt" \
+                                      "text/x-component" \
+                                      "text/x-cross-domain-policy" \
+                                      "text/xml"
+	</IfModule>
+
+	<IfModule mod_mime.c>
+		AddEncoding gzip svgz
+	</IfModule>
+
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Caching                                                            
+# -----------------------------------------------------------------------------
+
+<IfModule mod_expires.c>
+	
+	<IfModule mod_env.c>
+	        SetEnv gambio_mod_expires_working 1
+	</IfModule>
+
+	<IfModule !mod_env.c>
+		<IfModule mod_setenvif.c>
+		        SetEnvIf ENV ^(.*)$ gambio_mod_expires_working=1
+		</IfModule>
+	</IfModule>
+        
+	ExpiresActive On 
+
+	# -----------------------------------------------------------------------------
+	# Really cache anything
+	# -----------------------------------------------------------------------------
+
+	ExpiresDefault "access plus 1 month"
+	
+	# -----------------------------------------------------------------------------
+	# Definitons for tweakers
+	# -----------------------------------------------------------------------------
+
+	# CSS
+	ExpiresByType text/css "access plus 1 month"
+	
+	# Favicon (cannot be renamed!) and cursor images
+	ExpiresByType image/vnd.microsoft.icon "access plus 1 month"
+	ExpiresByType image/x-icon "access plus 1 month"
+	
+	# Media files
+	ExpiresByType audio/ogg "access plus 1 month"
+	ExpiresByType image/bmp "access plus 1 month"
+	ExpiresByType image/gif "access plus 1 month"
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+	ExpiresByType image/svg+xml "access plus 1 month"
+	ExpiresByType image/webp "access plus 1 month"
+	ExpiresByType video/mp4 "access plus 1 month"
+	ExpiresByType video/ogg "access plus 1 month"
+	ExpiresByType video/webm "access plus 1 month"
+		
+	# Web fonts
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+	ExpiresByType font/eot "access plus 1 month"
+	ExpiresByType font/opentype "access plus 1 month"
+	ExpiresByType application/x-font-ttf "access plus 1 month"
+	ExpiresByType application/font-woff "access plus 1 month"
+	ExpiresByType application/x-font-woff "access plus 1 month"
+	ExpiresByType font/woff "access plus 1 month"
+	ExpiresByType application/font-woff2 "access plus 1 month"
+	
+	# JavaScript
+	ExpiresByType application/javascript "access plus 1 month"
+	ExpiresByType application/x-javascript "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	
+	# -----------------------------------------------------------------------------
+	# Exclude these mimetypes from caching, these always need to be current
+	# -----------------------------------------------------------------------------
+	
+	# XML Files like the Sitemap 
+	ExpiresByType application/xml "access plus 0 seconds"
+
+	# Styleedit Output, Statistics, Shopintercommunication, API Output
+	ExpiresByType application/json "access plus 0 seconds"
+
+	# All kinds of exports
+	ExpiresByType text/csv "access plus 0 seconds"
+	
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Security                                                            
+# -----------------------------------------------------------------------------
+
+<ifModule mod_headers.c>
+
+	Header set X-Content-Type-Options: nosniff
+
+</ifModule>
+
+## Disable index listing for all folders
+Options -Indexes
+
+# -----------------------------------------------------------------------------
+# Rewrites: SEOBoost, Security + Image Processing on the fly
+# -----------------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+
+	<IfModule mod_env.c>
+		SetEnv gambio_mod_rewrite_working 1
+	</IfModule>
+
+	<IfModule !mod_env.c>
+		<IfModule mod_setenvif.c>
+			SetEnvIf ENV ^(.*)$ gambio_mod_rewrite_working=1
+		</IfModule>
+	</IfModule>
+
+	RewriteEngine on
+
+	##some Hosters like 1&1 need the following line to be enabled, else all the following will fail all the time
+
+	RewriteBase /
+
+	# -----------------------------------------------------------------------------
+	# Dynamically detect Rewritebase and URI part past Rewritebase
+	# -----------------------------------------------------------------------------
+
+	RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+	RewriteRule ^(.*)$ - [E=SUFFIX:%2]
+
+	RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+	RewriteRule ^(.*)$ - [E=BASE:%1]
+
+	# -----------------------------------------------------------------------------
+	# Passthrough of HTTP Auth Headers to PHP on Hosts using PHP FPM/FCGI
+	# -----------------------------------------------------------------------------
+
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+	# -----------------------------------------------------------------------------
+	# Security: Deny direct access to important system folders
+	# -----------------------------------------------------------------------------
+
+	## we don't distribute a git config ourselves but we saw users doing it, 
+	## which is a really bad idea. Let's protect it.
+	RewriteCond %{ENV:SUFFIX} ^.git/.* [or]
+
+	## protect system folders
+	RewriteCond %{ENV:SUFFIX} ^admin/backups/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^cache/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^debug/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^download/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^export/inventory/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^export/invoice/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^export/packsingslip/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^export/sepa/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^gambio_updater/updates/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^gm/customer_uploads/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^GProtector/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^GXEngine/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^GXMainComponents/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^includes/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^logfiles/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^uploads/.* [or]
+	RewriteCond %{ENV:SUFFIX} ^version_info/.*
+	RewriteRule ^(.*)$ - [R=403,L]
+
+	# -----------------------------------------------------------------------------
+	# Cache busting
+	# -----------------------------------------------------------------------------
+
+	RewriteCond %{ENV:SUFFIX} .*-bust_.*(\.(min\.)?(js|css\.php|css))
+	RewriteRule ^(.*)(-bust_[0-9a-f]+)(\.(min\.)?(js|css\.php|css))$ %{ENV:BASE}$1$3 [L,QSA]
+
+	# -----------------------------------------------------------------------------
+	# Image Processing on the fly
+	# -----------------------------------------------------------------------------
+
+	## if request destination is a product image and size not bigger than 0 try to create the sized image
+	RewriteCond %{REQUEST_URI} ".*?\/images\/product_images\/.*\.(?:gif|jpe?g|png)$" [NC]
+	RewriteCond %{REQUEST_FILENAME} !-s
+	RewriteRule (\.gif|\.jpe?g|\.png)$ %{ENV:BASE}shop.php?do=ImageRequest [L,NC]
+
+	# -----------------------------------------------------------------------------
+	# Put your own Redirects and Rewrites here - Start
+	# -----------------------------------------------------------------------------
+	
+	## Example Redirects
+
+	## Example for category 
+	#RewriteCond %{REQUEST_URI} old-category
+	#RewriteRule ^(.*)$ https://www.shop.com/new-category [L,R=301]
+
+	## Example for product
+	#RewriteCond %{REQUEST_URI} old-category/old-product.html
+	#RewriteRule ^(.*)$ https://www.shop.com/new-category/new-product-html [L,R=301]
+
+	## If you need GET parameters to be passed on, add QSA to flags like this
+	## Hint: most of the time this is a bad idea
+	#RewriteCond %{REQUEST_URI} old-category/old-product.html
+	#RewriteRule ^(.*)$ https://www.shop.com/new-category/new-product-html [QSA,L,R=301]
+	
+	# -----------------------------------------------------------------------------
+	# Put your own Redirects and Rewrites here - End
+	# -----------------------------------------------------------------------------
+	
+	# -----------------------------------------------------------------------------
+	# Gambio Admin
+	# -----------------------------------------------------------------------------
+
+	RewriteCond %{ENV:SUFFIX} ^admin/.*
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+	RewriteRule ^(.*)$ %{ENV:BASE}admin/index.php [L,QSA]
+
+	# -----------------------------------------------------------------------------
+	# Gambio SEO Boost URLs
+	# -----------------------------------------------------------------------------
+
+        ## if request destination is any of these filetypes or located in any of these folders stop processing rewrite
+        RewriteCond %{REQUEST_FILENAME} ^(.*)\.(php|css|js|gif|ico|jpe?g|png)$ [NC,or]
+        RewriteCond %{REQUEST_URI} .*?\/(?:admin|images|public|templates|themes)\/.
+        RewriteRule ^(.+) - [L]
+
+        ## if request destination is an existing directory, file or link stop processing rewrite
+        RewriteCond %{REQUEST_FILENAME} -d [or]
+        RewriteCond %{REQUEST_FILENAME} -f [or]
+        RewriteCond %{REQUEST_FILENAME} -l
+        RewriteRule ^(.+) - [L]
+
+        #if request destination is a php file in root dir and language code in url is present lets go there
+        RewriteRule ^[a-z]{2}/([A-Za-z0-9_/-]+)\.php.* %{ENV:BASE}$1.php?%{QUERY_STRING} [PT,L]
+                
+        ##If all of these conditions didn't stop us, lets rewrite
+
+        ##boosted CONTENT
+        RewriteRule (^[A-Za-z]{2}/){0,1}(.*/)?info/([A-Za-z0-9_/-]+)\.html.* %{ENV:BASE}shop_content.php?gm_boosted_content=$3&%{QUERY_STRING} [PT,L]
+        RewriteRule (^[A-Za-z]{2}/){0,1}(.*/)?popup/([A-Za-z0-9_/-]+)\.html.* %{ENV:BASE}popup_content.php?gm_boosted_content=$3&%{QUERY_STRING} [PT,L]
+
+        ##boosted PRODUCTS
+        RewriteRule (^[A-Za-z]{2}/){0,1}([A-Za-z0-9_/-]+)\.html %{ENV:BASE}product_info.php?gm_boosted_product=$2&%{QUERY_STRING} [PT,L]
+
+        ##boosted CATEGORIES
+        RewriteRule (^[A-Za-z]{2}/){0,1}([A-Za-z0-9_\/-]*)(\?*.*|\z) %{ENV:BASE}index.php?gm_boosted_category=$2&%{QUERY_STRING} [L]
+
+</IfModule>

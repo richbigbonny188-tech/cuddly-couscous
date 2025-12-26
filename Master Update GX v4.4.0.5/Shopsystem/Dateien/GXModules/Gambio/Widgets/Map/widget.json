@@ -1,0 +1,157 @@
+{
+	"id": "map",
+	"title": "mapWidget.title",
+	"icon": {
+		"name": "Map",
+		"file": "image.svg"
+	},
+	"author": {
+		"name": "Gambio GmbH",
+		"email": "info@gambio.de",
+		"url": "https://www.gambio.de"
+	},
+	"helpUrl": "https://www.gambio.de/help",
+	"description": "mapWidget.description",
+	"cache": 0,
+	"version": "1.0.0",
+	"displayConfig": "sidebar",
+	"fieldsets": [
+		{
+			"title": "imageWidget.options.general.title",
+			"options": [
+				{
+					"id": "id",
+					"label": "mapWidget.options.general.options.id.label",
+					"type": "textbox",
+					"attributes": {
+						"placeholder": "imageWidget.options.general.options.id.placeholder"
+					},
+					"default": "",
+					"from": "contentZoneWidget"
+				}
+			]
+		},
+		{
+			"title": "mapWidget.options.dimensions.title",
+			"options": [
+				{
+					"id": "width",
+					"label": "mapWidget.options.dimensions.options.width.label",
+					"type": "numberbox",
+					"placeholder": "mapWidget.options.dimensions.options.width.placeholder",
+					"default": "100%",
+					"from": "contentZoneWidget",
+					"visible": {
+						"id": "responsive",
+						"value": false
+					}
+				},
+				{
+					"id": "height",
+					"label": "mapWidget.options.dimensions.options.height.label",
+					"type": "numberbox",
+					"placeholder": "mapWidget.options.dimensions.options.height.placeholder",
+					"default": "400px",
+					"from": "contentZoneWidget",
+					"visible": {
+						"id": "responsive",
+						"value": false,
+						"comparison_type": "=="
+					}
+				}
+			
+			]
+		},
+		{
+			"title": "mapWidget.options.configuration.title",
+			"options": [
+				{
+					"id": "googleMaps",
+					"type": "googlemaps",
+					"label": "mapWidget.options.configuration.title",
+					"from": "contentZoneWidget",
+					"default": {
+						"zoom": {
+							"value": 8,
+							"attributes": {
+								"min": 1,
+								"max": 20
+							}
+						},
+						"latitude":"",
+						"longitude": "",
+						"apiKey": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "mapWidget.options.style.title",
+			"options": [
+				{
+					"id": "style",
+					"label": "mapWidget.options.maps.options.style.label",
+					"type": "radioimage",
+					"attributes": {
+						"placeholder": "mapWidget.options.maps.options.style.placeholder"
+					},
+					"default": "standard",
+					"from": "contentZoneWidget",
+					"options": [
+						{
+							"id": "standard",
+							"title": "Standard",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/standard.png"
+						},
+						{
+							"id": "silver",
+							"title": "Silver",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/silver.png"
+						},
+						{
+							"id": "retro",
+							"title": "Retro",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/retro.png"
+						},
+						{
+							"id": "dark",
+							"title": "Dark",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/dark.png"
+						},
+						{
+							"id": "night",
+							"title": "Night",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/night.png"
+						},
+						{
+							"id": "aubergine",
+							"title": "Aubergine",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/aubergine.png"
+						},
+						{
+							"id": "custom",
+							"title": "Custom",
+							"thumbnail": "../../../../GXModules/Gambio/Widgets/Map/Assets/Images/custom.png"
+						}
+					]
+				},
+				{
+					"id": "customStyle",
+					"label": "mapWidget.options.maps.options.customStyle.label",
+					"type": "longtextbox",
+					"attributes": {
+						"placeholder": "mapWidget.options.maps.options.customStyle.placeholder",
+						"rows": 10
+					},
+					"default": "",
+					"from": "contentZoneWidget",
+					"visible": {
+						"id": "style",
+						"value": "custom",
+						"comparison_type": "=="
+					}
+				}
+			]
+		}
+	]
+}

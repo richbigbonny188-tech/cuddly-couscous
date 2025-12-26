@@ -1,0 +1,65 @@
+{block name="module_google_analytics_snippet_shopping_cart_change"}
+    {if cookie_consent_panel_is_installed()}
+		<script
+			data-managed="as-oil"
+			data-type="text/javascript"
+			data-purposes="4"
+			type="as-oil"
+		>
+	{else}
+		<script>
+	{/if}
+		(function() {
+			function addHook() {
+				jse.libs.hooks.add(jse.libs.hooks.keys.shop.cart.change, callback);
+			}
+
+			function callback(data) {
+				const promise = new Promise(function(resolve) {
+					if (data.type === 'delete') {
+						const endpointUrl = `${ jse.core.config.get('appUrl') }/shop.php?do=GoogleAnalyticsShop/removeFromCart`;
+
+						const parameters = {
+							id: data.article,
+							quantity: data.dataset.cart_quantity[0],
+						};
+
+						function onSuccess(response) {
+							if (!response.enabled) {
+								resolve();
+								return;
+							}
+
+							gtag('event', 'remove_from_cart', {
+								"items": [JSON.parse(response.item)]
+							});
+
+							resolve();
+						}
+
+						function onFail() {
+							resolve();
+						}
+
+						jse.libs.xhr.post({
+							url: endpointUrl,
+							data: parameters,
+						})
+							.then(onSuccess)
+							.fail(onFail)
+
+						return;
+					}
+
+					resolve();
+				});
+
+				promise.then(addHook);
+
+				return promise;
+			}
+
+			document.addEventListener('JSENGINE_INIT_FINISHED', addHook)
+		})();
+	</script>
+{/block}

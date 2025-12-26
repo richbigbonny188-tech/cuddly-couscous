@@ -1,0 +1,18 @@
+{block name='google_maps_widget'}
+	<style type="text/css">
+		#{$widgetId} {
+			width: {$width};
+			height: {$height};
+			background-color: rgb(238, 238, 238);
+		}
+	</style>
+
+    {include file="get_usermod:{$tpl_dir}google_maps_consent_warning.html"}
+
+	<div id="{$widgetId}">
+        {include file="get_usermod:{$tpl_dir}google_maps_consent_message.html"}
+	</div>
+
+	{include file="get_usermod:{$tpl_dir}google_maps_loader.html"}
+
+{/block}

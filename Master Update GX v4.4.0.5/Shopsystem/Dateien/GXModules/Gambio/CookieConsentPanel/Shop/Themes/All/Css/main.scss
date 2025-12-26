@@ -1,0 +1,132 @@
+/*!
+ * main.scss 2019-12-19
+ * Gambio GmbH
+ * http://www.gambio.de
+ * Copyright (c) 2019 Gambio GmbH
+ * Released under the GNU General Public License (Version 2)
+ * [http://www.gnu.org/licenses/gpl-2.0.html]
+ */
+
+
+$cookie-consent-panel-background-color: #f9f9f9 !default;
+$cookie-consent-panel-opacity: 0.97 !default;
+$cookie-consent-panel-box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2) !default;
+$cookie-consent-panel-headline-font-size: 18px !default;
+$cookie-consent-panel-description-font-size: 13px !default;
+$cookie-consent-panel-buttons-color: $brand-primary !default;
+$cookie-consent-panel-buttons-color-hover: $brand-primary !default;
+$breakpoint-mobile: 768px !default;
+
+
+.as-oil {
+	color: #737373;
+
+	.as-oil-content-overlay {
+		background-color: $cookie-consent-panel-background-color;
+		opacity: $cookie-consent-panel-opacity;
+		-webkit-box-shadow: $cookie-consent-panel-box-shadow; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+		-moz-box-shadow: $cookie-consent-panel-box-shadow; /* Firefox 3.5 - 3.6 */
+		box-shadow: $cookie-consent-panel-box-shadow; /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+	}
+
+	.as-oil__heading {
+		margin-bottom: 10px;
+		font-size: $cookie-consent-panel-headline-font-size;
+	}
+
+	.as-oil__intro-txt {
+		max-width: 100%;
+		font-size: $cookie-consent-panel-description-font-size;
+	}
+
+	.as-js-btn-activate-all {
+		background-color: $cookie-consent-panel-buttons-color;
+		&:hover {
+			background-color: $cookie-consent-panel-buttons-color-hover;
+		}
+	}
+
+	.as-oil-cpc__categories_wrapper {
+		background: $cookie-consent-panel-background-color;
+		position: relative;
+		z-index: 5;
+	}
+
+	.as-oil-cpc__category {
+		background: #eee;
+	}
+
+	.as-oil-cpc__category-link--active {
+		border-color: $cookie-consent-panel-buttons-color;
+	}
+
+	.as-oil__btn-optin,
+    .as-oil__btn-only-essentials {
+		font-size: inherit;
+		background-color: $cookie-consent-panel-buttons-color;
+		&:hover {
+			background-color: $cookie-consent-panel-buttons-color-hover;
+		}
+	}
+
+    .as-oil__btn-only-essentials {
+        margin-top: .75rem;
+	}
+
+	.as-oil-cpc__switch {
+		input {
+			&:checked ~ .as-oil-cpc__slider {
+				background-color: $cookie-consent-panel-buttons-color;
+				color: $cookie-consent-panel-buttons-color;
+			}
+			&.half-active {
+				& ~ .as-oil-cpc__slider {
+					background-color: rgba($cookie-consent-panel-buttons-color, 0.5);
+				}
+			}
+		}
+	}
+
+	.as-oil-cpc__status {
+		color: $cookie-consent-panel-buttons-color;
+	}
+
+	.as-oil-l-wrapper-layout-max-width {
+		max-width: ($screen-lg - 60);
+		overflow: unset;
+		@include clearfix();
+		.as-oil__heading-intro-description {
+			@media (min-width: $breakpoint-mobile) {
+				float: left;
+				width: 70%;
+			}
+		}
+		.as-oil-l-buttons {
+			@media (min-width: $breakpoint-mobile) {
+				margin-top: 0;
+				float: right;
+				width: 25%;
+			}
+			.as-oil__btn-cpc {
+				min-width: 160px;
+			}
+		}
+
+		&.as-oil-cpc-wrapper {
+			.as-oil__heading {
+				margin-bottom: 0;
+			}
+
+			.as-oil-cpc__row-title,
+			.as-oil__intro-txt,
+			.as-oil-back-button__text {
+				display: none;
+			}
+		}
+	}
+}
+
+.as-oil-cpc__category-link:first-of-type ~ *,
+#as-oil-cpc-third-parties {
+	display: none;
+}

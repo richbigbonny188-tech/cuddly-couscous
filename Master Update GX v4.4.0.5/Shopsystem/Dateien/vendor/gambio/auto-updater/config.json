@@ -1,0 +1,64 @@
+{
+	"additionalFiles": [
+		{
+			"repository": {
+				"url": "https://sources.gambio-server.net/gambio/gxdev.git",
+				"branch": "3.10_release_v3.10.0",
+				"files": [
+					{
+						"source": "src/gambio_updater/classes",
+						"destination": "gambio_updater/classes"
+					},
+					{
+						"source": "src/gambio_updater/css",
+						"destination": "gambio_updater/css"
+					},
+					{
+						"source": "src/gambio_updater/font-awesome",
+						"destination": "gambio_updater/font-awesome"
+					},
+					{
+						"source": "src/gambio_updater/images",
+						"destination": "gambio_updater/images"
+					},
+					{
+						"source": "src/gambio_updater/includes",
+						"destination": "gambio_updater/includes"
+					},
+					{
+						"source": "src/gambio_updater/javascript",
+						"destination": "gambio_updater/javascript"
+					},
+					{
+						"source": "src/gambio_updater/lang",
+						"destination": "gambio_updater/lang"
+					},
+					{
+						"source": "src/gambio_updater/config.ini",
+						"destination": "gambio_updater/config.ini"
+					},
+					{
+						"source": "src/gambio_updater/index.php",
+						"destination": "gambio_updater/index.php"
+					},
+					{
+						"source": "src/gambio_updater/request_port.php",
+						"destination": "gambio_updater/request_port.php"
+					},
+					{
+						"source": "src/gambio_updater/update.cli.php",
+						"destination": "gambio_updater/update.cli.php"
+					},
+					{
+						"source": "src/version_info/lists",
+						"destination": "version_info/lists"
+					},
+					{
+						"source": "src/system/classes/security/SecurityCheck.inc.php",
+						"destination": "system/classes/security/SecurityCheck.inc.php"
+					}
+				]
+			}
+		}
+	]
+}
