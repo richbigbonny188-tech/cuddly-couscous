@@ -318,5 +318,21 @@ All SQL injection and path traversal attack vectors identified during analysis w
 
 ---
 
+## SECURITY SUMMARY
+
+This security audit of VirtueMart 4.6.4.11226 identified **three confirmed CSRF vulnerabilities** in administrator-only AJAX endpoints:
+
+| # | Vulnerability | Severity | Status |
+|---|--------------|----------|--------|
+| 1 | CSRF in ajax_notifyUsers (Email Injection) | Medium | Confirmed - Requires fix |
+| 2 | CSRF in multifileimageupload (File Upload) | Low-Medium | Confirmed - Requires fix |
+| 3 | Disabled CSRF in getMedias (Info Disclosure) | Low | Confirmed - Requires fix |
+
+**No critical or high severity vulnerabilities were identified.**
+
+All potential SQL injection and path traversal vectors were found to be properly mitigated through input sanitization. The identified CSRF issues require administrative authentication plus social engineering to exploit.
+
+---
+
 **Report Status:** Complete  
 **Classification:** For Responsible Disclosure to System Owner
