@@ -1,0 +1,8 @@
+{
+    "config": {
+        "classmap-authoritative": true
+    },
+    "autoload": {
+        "classmap": ["helpers","models","plugins","tables"]
+    }
+}
